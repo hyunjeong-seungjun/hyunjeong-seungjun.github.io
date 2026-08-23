@@ -7,6 +7,6 @@
 - `index.html`: 청첩장 콘텐츠와 섹션 구조
 - `style.css`: 모바일 우선 반응형 스타일
 - `script.js`: 디데이, 링크 복사, 웹 공유 기능
-- `assets/images/`: 추후 사진 파일을 추가할 폴더
+- `assets/images/WHK00778.jpg`: 갤러리 및 오픈그래프 대표 사진
 
 GitHub Pages에서 별도 빌드 과정 없이 정적 사이트로 동작합니다.

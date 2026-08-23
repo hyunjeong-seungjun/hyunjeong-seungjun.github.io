@@ -188,8 +188,9 @@ button:disabled { border-color: var(--line); color: #a69d96; cursor: not-allowed
 .countdown { min-height: 28px; margin: 0; color: var(--brown); font-family: "Gowun Batang", serif; }
 
 .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.gallery-photo { grid-column: 1 / -1; margin: 0 0 8px; overflow: hidden; background: #ded4c6; }
+.gallery-photo img { display: block; width: 100%; height: auto; }
 .photo-placeholder { aspect-ratio: 1; display: grid; place-items: center; background: #ded4c6; color: rgba(103,84,71,.65); font-size: 9px; letter-spacing: .2em; }
-.photo-placeholder.featured { grid-row: span 2; aspect-ratio: auto; background: #d5c6b4; }
 .photo-placeholder.wide { grid-column: 1 / -1; aspect-ratio: 2 / 1; background: #e5ddd1; }
 
 .venue { margin-bottom: 4px; font-size: 23px; }
