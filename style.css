@@ -1,0 +1,242 @@
+:root {
+  --ivory: #f7f1e7;
+  --paper: #fffdf8;
+  --beige: #e9dece;
+  --taupe: #a78f76;
+  --brown: #675447;
+  --ink: #332d29;
+  --muted: #81756c;
+  --line: rgba(103, 84, 71, .18);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #e7e0d7;
+  color: var(--ink);
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font: inherit; }
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  left: 8px;
+  padding: 8px 12px;
+  transform: translateY(-150%);
+  border-radius: 4px;
+  background: var(--ink);
+  color: #fff;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+.invitation {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 0 32px rgba(66, 53, 43, .12);
+}
+
+.section {
+  position: relative;
+  padding: 84px 28px;
+  text-align: center;
+}
+
+.section + .section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 36px;
+  height: 1px;
+  transform: translateX(-50%);
+  background: var(--taupe);
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1, h2, .large-date, .venue, .closing-names {
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+}
+
+h2 {
+  margin-bottom: 34px;
+  font-size: 24px;
+  letter-spacing: -.02em;
+}
+
+.section-no, .eyebrow, .role {
+  color: var(--taupe);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .28em;
+}
+
+.section-no { margin-bottom: 8px; }
+.section-intro { margin-bottom: 28px; color: var(--muted); }
+.placeholder, .help-text { color: var(--muted); }
+.help-text { margin: 10px 0 0; font-size: 12px; line-height: 1.6; }
+
+.cover {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: max(52px, env(safe-area-inset-top));
+  padding-bottom: max(52px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 10% 15%, rgba(255,255,255,.82), transparent 26%),
+    linear-gradient(150deg, var(--ivory), #eee1d0);
+}
+
+.eyebrow { margin-bottom: 38px; }
+
+.cover-frame {
+  position: relative;
+  width: min(74vw, 310px);
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  margin-bottom: 36px;
+  border: 1px solid rgba(103, 84, 71, .38);
+  border-radius: 48% 48% 8px 8px;
+}
+
+.cover-frame::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(255,255,255,.65);
+  border-radius: inherit;
+}
+
+.cover-initial {
+  font-family: "Gowun Batang", serif;
+  font-size: 36px;
+  letter-spacing: .12em;
+}
+
+.cover-initial i { color: var(--taupe); font-size: 20px; font-style: normal; }
+
+.cover h1 {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  font-size: 22px;
+  letter-spacing: .08em;
+}
+
+.cover h1 i { color: var(--taupe); font-size: 11px; font-style: normal; letter-spacing: 0; }
+.cover-date { margin-bottom: 3px; font-family: "Gowun Batang", serif; font-size: 15px; letter-spacing: .12em; }
+.cover-place { margin: 0; color: var(--muted); font-size: 13px; }
+
+.greeting { background: var(--paper); }
+.greeting > p:not(.section-no) { margin-bottom: 22px; font-family: "Gowun Batang", serif; font-size: 16px; line-height: 2.1; }
+.names { margin-top: 42px; font-family: "Gowun Batang", serif; font-size: 17px; }
+.names small { margin-right: 5px; color: var(--muted); font-family: "Noto Sans KR", sans-serif; font-size: 11px; }
+.names .dot { padding: 0 12px; color: var(--taupe); }
+
+.people, .gallery, .transport, .rsvp { background: var(--ivory); }
+.person-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.person-card { padding: 26px 14px 22px; border: 1px solid var(--line); background: rgba(255,255,255,.42); }
+.person-card h3 { margin: 8px 0 12px; font-size: 22px; }
+.person-card .placeholder { min-height: 46px; margin-bottom: 16px; font-size: 12px; }
+.contact-buttons, .map-buttons, .share-buttons { display: flex; gap: 8px; justify-content: center; }
+
+button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--taupe);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--brown);
+  cursor: pointer;
+}
+
+button:focus-visible { outline: 3px solid rgba(167,143,118,.4); outline-offset: 2px; }
+button:disabled { border-color: var(--line); color: #a69d96; cursor: not-allowed; }
+.contact-buttons button { flex: 1; padding-inline: 8px; font-size: 12px; }
+
+.large-date { margin-bottom: 2px; font-size: 22px; }
+.schedule > p:not(.section-no, .large-date, .countdown) { margin-bottom: 0; color: var(--muted); font-size: 13px; }
+.calendar { max-width: 350px; margin: 40px auto 24px; padding: 24px 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.calendar-head { display: flex; align-items: baseline; justify-content: center; gap: 10px; margin-bottom: 20px; }
+.calendar-head span { color: var(--muted); font-size: 12px; }
+.calendar-head strong { font-family: "Gowun Batang", serif; font-size: 18px; font-weight: 400; letter-spacing: .12em; }
+.weekdays, .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px 2px; }
+.weekdays { margin-bottom: 9px; color: var(--muted); font-size: 11px; }
+.weekdays span:first-child { color: #a66f65; }
+.days span { aspect-ratio: 1; display: grid; place-items: center; font-size: 12px; }
+.days .wedding-day { border-radius: 50%; background: var(--brown); color: white; font-weight: 600; }
+.countdown { min-height: 28px; margin: 0; color: var(--brown); font-family: "Gowun Batang", serif; }
+
+.gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.photo-placeholder { aspect-ratio: 1; display: grid; place-items: center; background: #ded4c6; color: rgba(103,84,71,.65); font-size: 9px; letter-spacing: .2em; }
+.photo-placeholder.featured { grid-row: span 2; aspect-ratio: auto; background: #d5c6b4; }
+.photo-placeholder.wide { grid-column: 1 / -1; aspect-ratio: 2 / 1; background: #e5ddd1; }
+
+.venue { margin-bottom: 4px; font-size: 23px; }
+.location > .placeholder { font-size: 13px; }
+.map-placeholder { height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; margin: 28px 0 14px; background: #ebe5dc; color: var(--muted); }
+.map-placeholder strong { font-size: 11px; letter-spacing: .25em; }
+.map-placeholder small { font-size: 11px; }
+.pin { width: 18px; height: 18px; border: 5px solid var(--taupe); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+.map-buttons { display: grid; grid-template-columns: repeat(3, 1fr); }
+.map-buttons button { padding-inline: 4px; font-size: 11px; }
+
+.info-list { margin: 0; text-align: left; }
+.info-list div { padding: 19px 0; border-bottom: 1px solid var(--line); }
+.info-list div:first-child { border-top: 1px solid var(--line); }
+.info-list dt { margin-bottom: 4px; color: var(--brown); font-family: "Gowun Batang", serif; font-size: 16px; }
+.info-list dd { margin: 0; color: var(--muted); font-size: 13px; }
+
+.notice-box { padding: 28px 16px; border: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.primary-button { width: 100%; margin-top: 18px; background: var(--brown); color: #fff; }
+.primary-button:disabled { background: #b9afa6; color: #f6f3ef; }
+.share-buttons { display: grid; grid-template-columns: repeat(3, 1fr); }
+.share-buttons button { padding-inline: 5px; font-size: 12px; }
+.share-buttons button:not(:disabled):hover { background: var(--brown); color: #fff; }
+.toast { min-height: 25px; margin: 14px 0 0; color: var(--brown); font-size: 12px; }
+
+.closing {
+  padding-top: 110px;
+  padding-bottom: max(110px, calc(80px + env(safe-area-inset-bottom)));
+  background: linear-gradient(180deg, var(--paper), var(--ivory));
+  font-family: "Gowun Batang", serif;
+}
+.closing > p:first-child { line-height: 2; }
+.closing-names { margin-top: 38px; font-size: 22px; letter-spacing: .14em; }
+.closing-names span { padding: 0 8px; color: var(--taupe); font-size: 14px; }
+.closing-date { margin-top: 8px; color: var(--muted); font-size: 11px; letter-spacing: .18em; }
+
+@media (max-width: 360px) {
+  .section { padding-inline: 20px; }
+  .person-list { grid-template-columns: 1fr; }
+  .person-card .placeholder { min-height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+@media (min-width: 481px) {
+  body { padding: 24px 0; }
+  .invitation { border-radius: 3px; }
+}

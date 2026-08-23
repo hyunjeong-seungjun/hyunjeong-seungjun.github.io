@@ -1,2 +1,12 @@
-# hyunjeong-seungjun.github.io
-Hyunjeong &amp; Seungjun Wedding Invitation
+# 승준 & 현정 모바일 청첩장
+
+2027년 1월 17일, 박승준과 정현정의 결혼식을 위한 모바일 청첩장입니다.
+
+## 파일 구조
+
+- `index.html`: 청첩장 콘텐츠와 섹션 구조
+- `style.css`: 모바일 우선 반응형 스타일
+- `script.js`: 디데이, 링크 복사, 웹 공유 기능
+- `assets/images/`: 추후 사진 파일을 추가할 폴더
+
+GitHub Pages에서 별도 빌드 과정 없이 정적 사이트로 동작합니다.
