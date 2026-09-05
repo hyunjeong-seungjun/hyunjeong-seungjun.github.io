@@ -1,11 +1,69 @@
 (() => {
   "use strict";
 
+  if (window.top !== window.self) {
+    document.documentElement.replaceChildren();
+    return;
+  }
+
   const weddingDate = new Date("2027-01-17T00:00:00+09:00");
   const countdown = document.querySelector("#countdown");
   const toast = document.querySelector("#toast");
   const copyButton = document.querySelector("#copy-link");
   const shareButton = document.querySelector("#native-share");
+  const protectedImagePath = atob("YXNzZXRzL2ltYWdlcy9tYWluLXByb3RlY3RlZC5qcGc=");
+
+  const protectedImage = new Image();
+  protectedImage.decoding = "async";
+  protectedImage.addEventListener("load", () => {
+    document.querySelectorAll("[data-protected-canvas]").forEach((canvas) => {
+      const context = canvas.getContext("2d", { alpha: false });
+      context.drawImage(protectedImage, 0, 0, canvas.width, canvas.height);
+      canvas.dataset.ready = "true";
+    });
+  }, { once: true });
+  protectedImage.src = protectedImagePath;
+
+  const isProtectedTarget = (target) => Boolean(
+    target.closest?.(".cover-frame, .gallery-photo, img, canvas")
+  );
+
+  ["contextmenu", "dragstart", "selectstart", "auxclick"].forEach((eventName) => {
+    document.addEventListener(eventName, (event) => {
+      if (isProtectedTarget(event.target)) event.preventDefault();
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase();
+    const blockedDeveloperShortcut = event.key === "F12" ||
+      (event.ctrlKey && event.shiftKey && ["i", "j", "c"].includes(key)) ||
+      (event.ctrlKey && ["u", "s"].includes(key));
+    const blockedZoomShortcut = event.ctrlKey && ["+", "-", "=", "0"].includes(key);
+    if (blockedDeveloperShortcut || blockedZoomShortcut) event.preventDefault();
+  });
+
+  document.addEventListener("wheel", (event) => {
+    if (event.ctrlKey) event.preventDefault();
+  }, { passive: false });
+  document.addEventListener("touchmove", (event) => {
+    if (event.touches.length > 1) event.preventDefault();
+  }, { passive: false });
+  ["gesturestart", "gesturechange", "gestureend"].forEach((eventName) => {
+    document.addEventListener(eventName, (event) => event.preventDefault(), { passive: false });
+  });
+
+  const hideProtectedPhotos = () => document.documentElement.classList.add("privacy-hidden");
+  const showProtectedPhotos = () => window.setTimeout(
+    () => document.documentElement.classList.remove("privacy-hidden"),
+    180
+  );
+  window.addEventListener("blur", hideProtectedPhotos);
+  window.addEventListener("focus", showProtectedPhotos);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) hideProtectedPhotos();
+    else showProtectedPhotos();
+  });
 
   const updateCountdown = () => {
     const today = new Date();
