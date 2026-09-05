@@ -151,15 +151,16 @@
     const dismissProgress = Math.min(Math.max((window.scrollY - viewport * 2.35) / (viewport * 0.5), 0), 1);
     const inset = 3 * (1 - frameProgress);
     const top = 4 * (1 - frameProgress);
-    const shoulder = 74 + openProgress * 4;
-    const tip = 89 + openProgress * 3;
+    const shoulder = 80 + openProgress * 2;
+    const lobe = 89.5 + openProgress * 2;
+    const peak = 86 + openProgress * 2;
     envelopeFramePath.setAttribute(
       "d",
       `M0 0H100V100H0Z M${inset.toFixed(3)} ${top.toFixed(3)}H${(100 - inset).toFixed(3)}V100H${inset.toFixed(3)}Z`
     );
     envelopePocketPath.setAttribute(
       "d",
-      `M0 ${shoulder.toFixed(3)}L42 ${(tip - 3).toFixed(3)}C46 ${(tip - 2).toFixed(3)} 47 ${tip.toFixed(3)} 50 ${tip.toFixed(3)}C53 ${tip.toFixed(3)} 54 ${(tip - 2).toFixed(3)} 58 ${(tip - 3).toFixed(3)}L100 ${shoulder.toFixed(3)}V100H0Z`
+      `M0 ${shoulder.toFixed(3)}L40 ${(lobe - 2).toFixed(3)}C43 ${(lobe - 0.8).toFixed(3)} 44 ${lobe.toFixed(3)} 46.5 ${lobe.toFixed(3)}C47.8 ${lobe.toFixed(3)} 48.2 ${(peak + 0.8).toFixed(3)} 49.2 ${(peak + 0.2).toFixed(3)}C49.6 ${(peak - 0.1).toFixed(3)} 50.4 ${(peak - 0.1).toFixed(3)} 50.8 ${(peak + 0.2).toFixed(3)}C51.8 ${(peak + 0.8).toFixed(3)} 52.2 ${lobe.toFixed(3)} 53.5 ${lobe.toFixed(3)}C56 ${lobe.toFixed(3)} 57 ${(lobe - 0.8).toFixed(3)} 60 ${(lobe - 2).toFixed(3)}L100 ${shoulder.toFixed(3)}V100H0Z`
     );
     envelopePocketPath.setAttribute("transform", `translate(0 ${(pocketProgress * 32).toFixed(3)})`);
     envelope.style.setProperty("--frame-open", frameProgress.toFixed(3));
