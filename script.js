@@ -74,7 +74,8 @@
   const envelope = document.querySelector("#envelope-shell");
   const updateEnvelope = () => {
     const viewport = Math.max(window.innerHeight, 1);
-    const frameProgress = Math.min(Math.max(window.scrollY / 64, 0), 1);
+    const frameLinear = Math.min(Math.max(window.scrollY / 40, 0), 1);
+    const frameProgress = frameLinear * frameLinear * (3 - 2 * frameLinear);
     const openProgress = Math.min(Math.max(window.scrollY / (viewport * 0.78), 0), 1);
     const dismissProgress = Math.min(Math.max((window.scrollY - viewport * 2.35) / (viewport * 0.5), 0), 1);
     envelope.style.setProperty("--frame-open", frameProgress.toFixed(3));
