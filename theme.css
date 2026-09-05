@@ -7,7 +7,7 @@
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}.reveal.is-visible{opacity:1;transform:translateY(0)}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}@media(max-width:360px){.section{padding-inline:22px}.person-list{grid-template-columns:1fr}.person-card:nth-child(2){transform:none}.person-card .placeholder{min-height:auto}}@media(min-width:481px){body{padding:24px 0}}
 
 /* Scroll choreography inspired by the reference invitation film. */
-.cover::before,.cover::after{display:none}
+.cover::before,.cover::after{content:none!important;display:none!important;width:0!important;height:0!important;border:0!important}
 .motion-ready .reveal{opacity:0;filter:blur(7px);transform:translateY(58px) scale(.96);transition:opacity 1s ease,transform 1.15s cubic-bezier(.2,.75,.2,1),filter .9s ease}
 .motion-ready .reveal.is-visible{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}
 .motion-ready .cover-frame.reveal{transform:translateY(70px) rotate(-7deg) scale(.88)}
