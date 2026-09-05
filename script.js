@@ -74,29 +74,6 @@
     document.addEventListener(eventName, (event) => event.preventDefault(), { passive: false });
   });
 
-  const hideProtectedPhotos = () => document.documentElement.classList.add("privacy-hidden");
-  const showProtectedPhotos = () => window.setTimeout(
-    () => document.documentElement.classList.remove("privacy-hidden"),
-    180
-  );
-  window.addEventListener("blur", () => {
-    hideProtectedPhotos();
-    activateCaptureShield();
-  });
-  window.addEventListener("focus", () => {
-    showProtectedPhotos();
-    releaseCaptureShield(true);
-  });
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      hideProtectedPhotos();
-      activateCaptureShield();
-    } else {
-      showProtectedPhotos();
-      releaseCaptureShield(true);
-    }
-  });
-
   const updateCountdown = () => {
     const today = new Date();
     const todayInKorea = new Date(
