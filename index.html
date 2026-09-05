@@ -19,15 +19,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css?v=privacy-2">
-  <script src="script.js?v=privacy-5" defer></script>
+  <link rel="stylesheet" href="theme.css?v=envelope-8">
+  <script src="script.js?v=envelope-8" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#invitation">본문으로 바로가기</a>
   <div class="capture-shield" id="capture-shield" aria-hidden="true"></div>
   <div class="envelope-shell" id="envelope-shell" aria-hidden="true">
     <svg class="envelope-surface" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <path id="envelope-surface-path" fill-rule="evenodd" d="M0 0H100V100H0Z M3 4H97V76L50 89L3 76Z"></path>
+      <path class="envelope-frame-path" id="envelope-frame-path" fill-rule="evenodd" d="M0 0H100V100H0Z M3 4H97V100H3Z"></path>
+      <path class="envelope-pocket-path" id="envelope-pocket-path" d="M0 74L42 86C46 87 47 89 50 89C53 89 54 87 58 86L100 74V100H0Z"></path>
     </svg>
     <div class="envelope-label">INVITED</div>
     <div class="envelope-seal">H&amp;S</div>
