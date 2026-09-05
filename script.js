@@ -11,7 +11,8 @@
   const toast = document.querySelector("#toast");
   const copyButton = document.querySelector("#copy-link");
   const shareButton = document.querySelector("#native-share");
-  const protectedImagePath = atob("YXNzZXRzL2ltYWdlcy9vcHRpbWl6ZWQvbWFpbi1wcm90ZWN0ZWQuanBn");
+  const captureShield = document.querySelector("#capture-shield");
+  const protectedImagePath = atob("YXNzZXRzL2ltYWdlcy9vcHRpbWl6ZWQvbWFpbi1tb2JpbGUuanBnP3Y9Y2xlYW4tMQ==");
 
   const protectedImage = new Image();
   protectedImage.decoding = "async";
@@ -28,6 +29,20 @@
     target.closest?.(".cover-frame, .gallery-photo, img, canvas")
   );
 
+  let captureShieldTimer;
+  const activateCaptureShield = () => {
+    window.clearTimeout(captureShieldTimer);
+    captureShield.classList.add("is-active");
+    captureShield.setAttribute("aria-hidden", "false");
+  };
+  const releaseCaptureShield = (notify = false) => {
+    captureShieldTimer = window.setTimeout(() => {
+      captureShield.classList.remove("is-active");
+      captureShield.setAttribute("aria-hidden", "true");
+      if (notify) showMessage("화면 캡처가 제한되어 있습니다.");
+    }, 500);
+  };
+
   ["contextmenu", "dragstart", "selectstart", "auxclick"].forEach((eventName) => {
     document.addEventListener(eventName, (event) => {
       if (isProtectedTarget(event.target)) event.preventDefault();
@@ -36,6 +51,12 @@
 
   document.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase();
+    if (key === "printscreen") {
+      event.preventDefault();
+      activateCaptureShield();
+      releaseCaptureShield(true);
+      return;
+    }
     const blockedDeveloperShortcut = event.key === "F12" ||
       (event.ctrlKey && event.shiftKey && ["i", "j", "c"].includes(key)) ||
       (event.ctrlKey && ["u", "s"].includes(key));
@@ -58,11 +79,22 @@
     () => document.documentElement.classList.remove("privacy-hidden"),
     180
   );
-  window.addEventListener("blur", hideProtectedPhotos);
-  window.addEventListener("focus", showProtectedPhotos);
+  window.addEventListener("blur", () => {
+    hideProtectedPhotos();
+    activateCaptureShield();
+  });
+  window.addEventListener("focus", () => {
+    showProtectedPhotos();
+    releaseCaptureShield(true);
+  });
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) hideProtectedPhotos();
-    else showProtectedPhotos();
+    if (document.hidden) {
+      hideProtectedPhotos();
+      activateCaptureShield();
+    } else {
+      showProtectedPhotos();
+      releaseCaptureShield(true);
+    }
   });
 
   const updateCountdown = () => {
