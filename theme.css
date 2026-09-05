@@ -52,3 +52,4 @@ body{font-size:15px}h2{font-size:28px}.section-no,.role{font-size:10px}.section-
 @media(max-width:360px){.family-line{font-size:10px}}
 .envelope-label{font-family:"Gowun Batang",serif;font-size:15px;font-style:normal;font-weight:400;letter-spacing:.14em}
 .parking-note{display:block;margin-top:6px;color:#948d85;font-size:10px;line-height:1.65}
+html,body{width:100%;max-width:100%;overflow-x:hidden;overscroll-behavior-x:none}body{display:block}.invitation{position:relative;margin-inline:auto}
