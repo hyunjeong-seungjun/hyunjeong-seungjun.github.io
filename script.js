@@ -71,6 +71,19 @@
 
   updateCountdown();
 
+  const envelope = document.querySelector("#envelope-shell");
+  const updateEnvelope = () => {
+    const viewport = Math.max(window.innerHeight, 1);
+    const openProgress = Math.min(Math.max(window.scrollY / (viewport * 0.78), 0), 1);
+    const dismissProgress = Math.min(Math.max((window.scrollY - viewport * 1.55) / (viewport * 0.45), 0), 1);
+    envelope.style.setProperty("--open", openProgress.toFixed(3));
+    envelope.style.setProperty("--dismiss", dismissProgress.toFixed(3));
+  };
+
+  window.addEventListener("scroll", updateEnvelope, { passive: true });
+  window.addEventListener("resize", updateEnvelope);
+  updateEnvelope();
+
   document.documentElement.classList.add("motion-ready");
   const revealTargets = document.querySelectorAll(
     ".section > *:not(.section-no), .person-card"
