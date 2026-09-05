@@ -141,6 +141,7 @@
   const envelope = document.querySelector("#envelope-shell");
   const envelopeFramePath = document.querySelector("#envelope-frame-path");
   const envelopePocketPath = document.querySelector("#envelope-pocket-path");
+  const envelopeFoldShadowPath = document.querySelector("#envelope-fold-shadow-path");
   const updateEnvelope = () => {
     const viewport = Math.max(window.innerHeight, 1);
     const frameLinear = Math.min(Math.max(window.scrollY / 40, 0), 1);
@@ -151,18 +152,24 @@
     const dismissProgress = Math.min(Math.max((window.scrollY - viewport * 2.35) / (viewport * 0.5), 0), 1);
     const inset = 3 * (1 - frameProgress);
     const top = 4 * (1 - frameProgress);
-    const shoulder = 80 + openProgress * 2;
-    const lobe = 89.5 + openProgress * 2;
-    const peak = 86 + openProgress * 2;
+    const shoulder = 69 + openProgress * 3;
+    const valley = 78 + openProgress * 3;
+    const flapTip = valley - 2.2;
     envelopeFramePath.setAttribute(
       "d",
       `M0 0H100V100H0Z M${inset.toFixed(3)} ${top.toFixed(3)}H${(100 - inset).toFixed(3)}V100H${inset.toFixed(3)}Z`
     );
     envelopePocketPath.setAttribute(
       "d",
-      `M0 ${shoulder.toFixed(3)}L40 ${(lobe - 2).toFixed(3)}C43 ${(lobe - 0.8).toFixed(3)} 44 ${lobe.toFixed(3)} 46.5 ${lobe.toFixed(3)}C47.8 ${lobe.toFixed(3)} 48.2 ${(peak + 0.8).toFixed(3)} 49.2 ${(peak + 0.2).toFixed(3)}C49.6 ${(peak - 0.1).toFixed(3)} 50.4 ${(peak - 0.1).toFixed(3)} 50.8 ${(peak + 0.2).toFixed(3)}C51.8 ${(peak + 0.8).toFixed(3)} 52.2 ${lobe.toFixed(3)} 53.5 ${lobe.toFixed(3)}C56 ${lobe.toFixed(3)} 57 ${(lobe - 0.8).toFixed(3)} 60 ${(lobe - 2).toFixed(3)}L100 ${shoulder.toFixed(3)}V100H0Z`
+      `M0 ${shoulder.toFixed(3)}C28 ${(shoulder + 5).toFixed(3)} 40 ${valley.toFixed(3)} 50 ${valley.toFixed(3)}C60 ${valley.toFixed(3)} 72 ${(shoulder + 5).toFixed(3)} 100 ${shoulder.toFixed(3)}V100H0Z`
     );
-    envelopePocketPath.setAttribute("transform", `translate(0 ${(pocketProgress * 32).toFixed(3)})`);
+    envelopeFoldShadowPath.setAttribute(
+      "d",
+      `M0 100L46 ${(flapTip + 0.9).toFixed(3)}Q50 ${flapTip.toFixed(3)} 54 ${(flapTip + 0.9).toFixed(3)}L100 100Z`
+    );
+    const pocketTransform = `translate(0 ${(pocketProgress * 32).toFixed(3)})`;
+    envelopePocketPath.setAttribute("transform", pocketTransform);
+    envelopeFoldShadowPath.setAttribute("transform", pocketTransform);
     envelope.style.setProperty("--frame-open", frameProgress.toFixed(3));
     envelope.style.setProperty("--open", openProgress.toFixed(3));
     envelope.style.setProperty("--pocket-dismiss", pocketProgress.toFixed(3));
