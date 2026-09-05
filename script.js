@@ -11,7 +11,7 @@
   const toast = document.querySelector("#toast");
   const copyButton = document.querySelector("#copy-link");
   const shareButton = document.querySelector("#native-share");
-  const protectedImagePath = atob("YXNzZXRzL2ltYWdlcy9tYWluLXByb3RlY3RlZC5qcGc=");
+  const protectedImagePath = atob("YXNzZXRzL2ltYWdlcy9vcHRpbWl6ZWQvbWFpbi1wcm90ZWN0ZWQuanBn");
 
   const protectedImage = new Image();
   protectedImage.decoding = "async";

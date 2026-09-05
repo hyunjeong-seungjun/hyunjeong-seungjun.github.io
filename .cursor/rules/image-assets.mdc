@@ -1,0 +1,14 @@
+---
+description: Keep original wedding photos private and publish only protected derivatives
+alwaysApply: true
+---
+
+# Wedding Image Asset Management
+
+- Store untouched source photos only in `assets/images/original/`.
+- Keep `assets/images/original/` ignored by Git. Never commit, deploy, rename, overwrite, or delete an original photo.
+- Store website-ready derivatives only in `assets/images/optimized/`.
+- Never reference an original-photo path from HTML, CSS, JavaScript, metadata, or manifests.
+- Before publishing a derivative, resize it for mobile use, strip EXIF/GPS metadata, lower JPEG quality, and apply the approved repeating watermark.
+- Create or replace derivatives from the matching original while preserving the original file unchanged.
+- Before every commit, verify that no file from `assets/images/original/` is staged and that the public site references only `assets/images/optimized/`.
