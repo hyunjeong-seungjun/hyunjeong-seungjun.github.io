@@ -149,7 +149,7 @@
     const openProgress = Math.min(Math.max(window.scrollY / (viewport * 0.78), 0), 1);
     const pocketLinear = Math.min(Math.max(window.scrollY / (viewport * 0.42), 0), 1);
     const pocketProgress = pocketLinear * pocketLinear * (3 - 2 * pocketLinear);
-    const dismissProgress = Math.min(Math.max((window.scrollY - viewport * 2.35) / (viewport * 0.5), 0), 1);
+    const dismissProgress = Math.min(Math.max((window.scrollY - viewport * 0.45) / (viewport * 0.25), 0), 1);
     const inset = 3 * (1 - frameProgress);
     const top = 4 * (1 - frameProgress);
     const shoulder = 69 + openProgress * 3;
@@ -165,9 +165,9 @@
     );
     envelopeFoldShadowPath.setAttribute(
       "d",
-      `M0 100L46 ${(flapTip + 0.9).toFixed(3)}Q50 ${flapTip.toFixed(3)} 54 ${(flapTip + 0.9).toFixed(3)}L100 100Z`
+      `M0 100L44 ${valley.toFixed(3)}C46 ${(valley - 1).toFixed(3)} 47 ${flapTip.toFixed(3)} 50 ${flapTip.toFixed(3)}C53 ${flapTip.toFixed(3)} 54 ${(valley - 1).toFixed(3)} 56 ${valley.toFixed(3)}L100 100Z`
     );
-    const pocketTransform = `translate(0 ${(pocketProgress * 32).toFixed(3)})`;
+    const pocketTransform = `translate(0 ${(pocketProgress * 40).toFixed(3)})`;
     envelopePocketPath.setAttribute("transform", pocketTransform);
     envelopeFoldShadowPath.setAttribute("transform", pocketTransform);
     envelope.style.setProperty("--frame-open", frameProgress.toFixed(3));
