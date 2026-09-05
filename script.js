@@ -27,6 +27,28 @@
   const invitationUrl = "https://hyunjeong-seungjun.github.io/";
   const protectedImagePath = atob("YXNzZXRzL2ltYWdlcy9vcHRpbWl6ZWQvbWFpbi1tb2JpbGUuanBnP3Y9Y2xlYW4tMQ==");
 
+  const viewportMeta = document.querySelector('meta[name="viewport"]');
+  const zoomEnabledViewport = "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover";
+  const zoomLockedViewport = "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover";
+  const visiblePhotoAreas = new Set();
+  const updateZoomAvailability = () => {
+    viewportMeta.setAttribute("content", visiblePhotoAreas.size ? zoomLockedViewport : zoomEnabledViewport);
+  };
+
+  if ("IntersectionObserver" in window) {
+    const photoVisibilityObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visiblePhotoAreas.add(entry.target);
+        else visiblePhotoAreas.delete(entry.target);
+      });
+      updateZoomAvailability();
+    }, { threshold: 0.01 });
+
+    document.querySelectorAll(".cover-frame, .gallery-photo").forEach((area) => {
+      photoVisibilityObserver.observe(area);
+    });
+  }
+
   const protectedImage = new Image();
   protectedImage.decoding = "async";
   protectedImage.addEventListener("load", () => {
