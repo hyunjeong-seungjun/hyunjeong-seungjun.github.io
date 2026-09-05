@@ -155,8 +155,10 @@
   const envelopeFramePath = document.querySelector("#envelope-frame-path");
   const envelopePocketPath = document.querySelector("#envelope-pocket-path");
   const envelopeFoldShadowPath = document.querySelector("#envelope-fold-shadow-path");
+  let envelopeViewportHeight = Math.max(window.innerHeight, 1);
+  let envelopeViewportWidth = window.innerWidth;
   const updateEnvelope = () => {
-    const viewport = Math.max(window.innerHeight, 1);
+    const viewport = envelopeViewportHeight;
     const frameLinear = Math.min(Math.max(window.scrollY / 40, 0), 1);
     const frameProgress = frameLinear * frameLinear * (3 - 2 * frameLinear);
     const openProgress = Math.min(Math.max(window.scrollY / (viewport * 0.78), 0), 1);
@@ -190,7 +192,13 @@
   };
 
   window.addEventListener("scroll", updateEnvelope, { passive: true });
-  window.addEventListener("resize", updateEnvelope);
+  window.addEventListener("resize", () => {
+    const widthChanged = Math.abs(window.innerWidth - envelopeViewportWidth) > 2;
+    if (!widthChanged) return;
+    envelopeViewportWidth = window.innerWidth;
+    envelopeViewportHeight = Math.max(window.innerHeight, 1);
+    updateEnvelope();
+  });
   updateEnvelope();
 
   document.documentElement.classList.add("motion-ready");
