@@ -1,6 +1,18 @@
 (() => {
   "use strict";
 
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  const resetScrollPosition = () => {
+    window.scrollTo(0, 0);
+    window.requestAnimationFrame(() => window.scrollTo(0, 0));
+  };
+
+  window.addEventListener("pageshow", resetScrollPosition);
+  window.addEventListener("load", resetScrollPosition, { once: true });
+
   if (window.top !== window.self) {
     document.documentElement.replaceChildren();
     return;
@@ -12,6 +24,7 @@
   const copyButton = document.querySelector("#copy-link");
   const shareButton = document.querySelector("#native-share");
   const captureShield = document.querySelector("#capture-shield");
+  const invitationUrl = "https://hyunjeong-seungjun.github.io/";
   const protectedImagePath = atob("YXNzZXRzL2ltYWdlcy9vcHRpbWl6ZWQvbWFpbi1tb2JpbGUuanBnP3Y9Y2xlYW4tMQ==");
 
   const protectedImage = new Image();
@@ -101,11 +114,11 @@
 
   const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(invitationUrl);
       showMessage("초대장 링크를 복사했습니다.");
     } catch {
       const field = document.createElement("textarea");
-      field.value = window.location.href;
+      field.value = invitationUrl;
       field.setAttribute("readonly", "");
       field.style.position = "fixed";
       field.style.opacity = "0";
@@ -119,22 +132,22 @@
 
   copyButton.addEventListener("click", copyLink);
 
-  if (navigator.share) {
-    shareButton.addEventListener("click", async () => {
-      try {
-        await navigator.share({
-          title: "박승준 · 정현정 결혼합니다",
-          text: "2027년 1월 17일 일요일, 더채플앳청담",
-          url: window.location.href
-        });
-      } catch (error) {
-        if (error.name !== "AbortError") showMessage("공유하지 못했습니다. 링크 복사를 이용해 주세요.");
-      }
-    });
-  } else {
-    shareButton.textContent = "링크 공유";
-    shareButton.addEventListener("click", copyLink);
-  }
+  shareButton.addEventListener("click", async () => {
+    if (!navigator.share) {
+      await copyLink();
+      return;
+    }
+
+    try {
+      await navigator.share({
+        title: "박승준 · 정현정 결혼합니다",
+        text: "2027년 1월 17일 오후 2시, 더채플앳청담 커티지홀",
+        url: invitationUrl
+      });
+    } catch (error) {
+      if (error.name !== "AbortError") showMessage("공유하지 못했습니다. 링크 복사를 이용해 주세요.");
+    }
+  });
 
   updateCountdown();
 
