@@ -78,6 +78,8 @@
     const frameLinear = Math.min(Math.max(window.scrollY / 40, 0), 1);
     const frameProgress = frameLinear * frameLinear * (3 - 2 * frameLinear);
     const openProgress = Math.min(Math.max(window.scrollY / (viewport * 0.78), 0), 1);
+    const pocketLinear = Math.min(Math.max(window.scrollY / (viewport * 0.42), 0), 1);
+    const pocketProgress = pocketLinear * pocketLinear * (3 - 2 * pocketLinear);
     const dismissProgress = Math.min(Math.max((window.scrollY - viewport * 2.35) / (viewport * 0.5), 0), 1);
     const inset = 3 * (1 - frameProgress);
     const top = 4 * (1 - frameProgress);
@@ -89,6 +91,7 @@
     );
     envelope.style.setProperty("--frame-open", frameProgress.toFixed(3));
     envelope.style.setProperty("--open", openProgress.toFixed(3));
+    envelope.style.setProperty("--pocket-dismiss", pocketProgress.toFixed(3));
     envelope.style.setProperty("--dismiss", dismissProgress.toFixed(3));
   };
 
