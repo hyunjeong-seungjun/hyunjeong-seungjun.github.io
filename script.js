@@ -72,12 +72,21 @@
   updateCountdown();
 
   const envelope = document.querySelector("#envelope-shell");
+  const envelopeSurfacePath = document.querySelector("#envelope-surface-path");
   const updateEnvelope = () => {
     const viewport = Math.max(window.innerHeight, 1);
     const frameLinear = Math.min(Math.max(window.scrollY / 40, 0), 1);
     const frameProgress = frameLinear * frameLinear * (3 - 2 * frameLinear);
     const openProgress = Math.min(Math.max(window.scrollY / (viewport * 0.78), 0), 1);
     const dismissProgress = Math.min(Math.max((window.scrollY - viewport * 2.35) / (viewport * 0.5), 0), 1);
+    const inset = 3 * (1 - frameProgress);
+    const top = 4 * (1 - frameProgress);
+    const shoulder = 76 + openProgress * 5;
+    const tip = 89 + openProgress * 4;
+    envelopeSurfacePath.setAttribute(
+      "d",
+      `M0 0H100V100H0Z M${inset.toFixed(3)} ${top.toFixed(3)}H${(100 - inset).toFixed(3)}V${shoulder.toFixed(3)}L50 ${tip.toFixed(3)}L${inset.toFixed(3)} ${shoulder.toFixed(3)}Z`
+    );
     envelope.style.setProperty("--frame-open", frameProgress.toFixed(3));
     envelope.style.setProperty("--open", openProgress.toFixed(3));
     envelope.style.setProperty("--dismiss", dismissProgress.toFixed(3));
