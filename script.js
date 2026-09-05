@@ -71,7 +71,10 @@
 
   updateCountdown();
 
-  const revealTargets = document.querySelectorAll(".section > *:not(.section-no)");
+  document.documentElement.classList.add("motion-ready");
+  const revealTargets = document.querySelectorAll(
+    ".section > *:not(.section-no), .person-card"
+  );
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -85,6 +88,19 @@
     revealTargets.forEach((target) => {
       target.classList.add("reveal");
       observer.observe(target);
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("section-visible");
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.06 });
+
+    document.querySelectorAll(".schedule, .location, .account").forEach((section) => {
+      sectionObserver.observe(section);
     });
   }
 })();
