@@ -132,6 +132,39 @@
 
   copyButton.addEventListener("click", copyLink);
 
+  document.querySelectorAll(".account-copy").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const number = button.dataset.account;
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(number);
+        copied = true;
+      } catch {
+        const field = document.createElement("textarea");
+        field.value = number;
+        field.setAttribute("readonly", "");
+        field.style.cssText = "position:fixed;top:0;left:0;opacity:0;font-size:16px";
+        document.body.appendChild(field);
+        field.select();
+        field.setSelectionRange(0, number.length);
+        try {
+          copied = document.execCommand("copy");
+        } catch {
+          copied = false;
+        } finally {
+          field.remove();
+          button.focus({ preventScroll: true });
+        }
+      }
+      showMessage(copied ? `${button.dataset.owner}님의 계좌번호를 복사했습니다.` : "복사하지 못했습니다. 계좌번호를 길게 눌러 복사해 주세요.");
+      if (copied) {
+        window.clearTimeout(button.copyFeedbackTimer);
+        button.textContent = "완료";
+        button.copyFeedbackTimer = window.setTimeout(() => { button.textContent = "복사"; }, 2400);
+      }
+    });
+  });
+
   shareButton.addEventListener("click", async () => {
     if (!navigator.share) {
       await copyLink();

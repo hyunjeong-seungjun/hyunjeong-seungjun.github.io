@@ -27,8 +27,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css?v=envelope-42">
-  <script src="script.js?v=envelope-42" defer></script>
+  <link rel="stylesheet" href="theme.css?v=account-43">
+  <script src="script.js?v=account-43" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#invitation">본문으로 바로가기</a>
@@ -188,9 +188,17 @@
       <p class="section-no" aria-hidden="true">07</p>
       <h2 id="account-title">마음 전하실 곳</h2>
       <p class="section-intro">참석이 어려우신 분들을 위해<br>마음을 전하실 곳을 안내드립니다.</p>
-      <div class="notice-box">
-        <p>신랑 <strong>박승준</strong><br>국민은행 <span style="white-space:nowrap;user-select:text">068802-04-163914</span></p>
-        <p>신부 <strong>정현정</strong><br>토스뱅크 <span style="white-space:nowrap;user-select:text">1000-1488-0516</span></p>
+      <div class="account-cards">
+        <div class="account-card" role="group" aria-label="신랑 박승준 계좌">
+          <div class="account-owner"><span>신랑</span><strong>박승준</strong></div>
+          <p class="account-bank">국민은행</p>
+          <div class="account-number-row"><span class="account-number">068802-04-163914</span><button class="account-copy" type="button" data-account="068802-04-163914" data-owner="박승준" aria-label="박승준 국민은행 계좌번호 복사">복사</button></div>
+        </div>
+        <div class="account-card" role="group" aria-label="신부 정현정 계좌">
+          <div class="account-owner"><span>신부</span><strong>정현정</strong></div>
+          <p class="account-bank">토스뱅크</p>
+          <div class="account-number-row"><span class="account-number">1000-1488-0516</span><button class="account-copy" type="button" data-account="1000-1488-0516" data-owner="정현정" aria-label="정현정 토스뱅크 계좌번호 복사">복사</button></div>
+        </div>
       </div>
     </section>
 
