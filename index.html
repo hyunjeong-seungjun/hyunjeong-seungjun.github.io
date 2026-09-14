@@ -27,8 +27,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css?v=account-47">
-  <script src="script.js?v=account-43" defer></script>
+  <link rel="stylesheet" href="theme.css?v=gallery-48">
+  <script src="script.js?v=gallery-48" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#invitation">본문으로 바로가기</a>
@@ -116,7 +116,9 @@
       <p class="section-no" aria-hidden="true">04</p>
       <h2 id="gallery-title">우리의 순간</h2>
       <p class="section-intro">함께 쌓아온 소중한 순간들입니다.</p>
-      <div class="gallery-grid" aria-label="승준과 현정의 웨딩 사진첩">
+      <div class="gallery-carousel">
+      <button class="gallery-arrow gallery-prev" type="button" aria-label="이전 사진" aria-controls="gallery-photos" disabled><span aria-hidden="true">‹</span></button>
+      <div class="gallery-grid" id="gallery-photos" aria-label="승준과 현정의 웨딩 사진첩">
         <figure class="gallery-photo"><img src="assets/images/optimized/album/dan_0207.webp" width="933" height="1400" loading="lazy" decoding="async" alt="승준과 현정의 웨딩 사진 1"></figure>
         <figure class="gallery-photo"><img src="assets/images/optimized/album/dans0096.webp" width="933" height="1400" loading="lazy" decoding="async" alt="승준과 현정의 웨딩 사진 2"></figure>
         <figure class="gallery-photo"><img src="assets/images/optimized/album/dans0170.webp" width="933" height="1400" loading="lazy" decoding="async" alt="승준과 현정의 웨딩 사진 3"></figure>
@@ -144,6 +146,8 @@
         <figure class="gallery-photo"><img src="assets/images/optimized/album/whk01234.webp" width="933" height="1400" loading="lazy" decoding="async" alt="승준과 현정의 웨딩 사진 25"></figure>
         <figure class="gallery-photo"><img src="assets/images/optimized/album/whk01579.webp" width="933" height="1400" loading="lazy" decoding="async" alt="승준과 현정의 웨딩 사진 26"></figure>
         <figure class="gallery-photo"><img src="assets/images/optimized/album/whk01920.webp" width="933" height="1400" loading="lazy" decoding="async" alt="승준과 현정의 웨딩 사진 27"></figure>
+      </div>
+      <button class="gallery-arrow gallery-next" type="button" aria-label="다음 사진" aria-controls="gallery-photos"><span aria-hidden="true">›</span></button>
       </div>
     </section>
 

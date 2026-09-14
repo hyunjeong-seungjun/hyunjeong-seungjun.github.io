@@ -184,6 +184,34 @@
 
   updateCountdown();
 
+  const gallery = document.querySelector(".gallery-grid");
+  const galleryPhotos = [...gallery.querySelectorAll(".gallery-photo")];
+  const previousPhoto = document.querySelector(".gallery-prev");
+  const nextPhoto = document.querySelector(".gallery-next");
+  const photoPosition = (photo) => {
+    const frame = gallery.getBoundingClientRect();
+    const rect = photo.getBoundingClientRect();
+    return Math.max(0, Math.min(gallery.scrollWidth - gallery.clientWidth,
+      gallery.scrollLeft + rect.left - frame.left + rect.width / 2 - gallery.clientWidth / 2));
+  };
+  const updateGalleryButtons = () => {
+    previousPhoto.disabled = gallery.scrollLeft <= 2;
+    nextPhoto.disabled = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 2;
+  };
+  const movePhoto = (direction) => {
+    const positions = galleryPhotos.map(photoPosition);
+    const closest = positions.reduce((best, position, index) =>
+      Math.abs(position - gallery.scrollLeft) < Math.abs(positions[best] - gallery.scrollLeft) ? index : best, 0);
+    const index = Math.max(0, Math.min(positions.length - 1, closest + direction));
+    gallery.scrollTo({ left: positions[index], behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+  };
+  previousPhoto.addEventListener("click", () => movePhoto(-1));
+  nextPhoto.addEventListener("click", () => movePhoto(1));
+  gallery.addEventListener("scroll", updateGalleryButtons, { passive: true });
+  window.addEventListener("resize", updateGalleryButtons);
+  window.addEventListener("load", updateGalleryButtons);
+  updateGalleryButtons();
+
   const envelope = document.querySelector("#envelope-shell");
   const envelopeFramePath = document.querySelector("#envelope-frame-path");
   const envelopePocketPath = document.querySelector("#envelope-pocket-path");
