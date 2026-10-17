@@ -2,6 +2,7 @@
 from pathlib import Path
 import re
 import sys
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'private-source/python-deps'))
@@ -15,6 +16,7 @@ output.mkdir(parents=True, exist_ok=True)
 photos = sorted((p for p in source.iterdir() if p.is_file() and p.suffix.lower() in {'.jpg', '.jpeg', '.png', '.heic'}), key=lambda p: p.name.lower())
 assert photos, 'No album photos found'
 figures = []
+generated = set()
 for number, photo in enumerate(photos, 1):
     with Image.open(photo) as original:
         picture = ImageOps.exif_transpose(original).convert('RGB')
@@ -24,9 +26,12 @@ for number, photo in enumerate(photos, 1):
         clean.paste(picture)
         name = re.sub(r'[^a-z0-9_-]+', '-', photo.stem.lower()).strip('-') + '.webp'
         clean.save(output / name, 'WEBP', quality=82, method=6)
+        assert name not in generated, f'Duplicate output filename: {name}'
+        generated.add(name)
+        version = hashlib.sha256((output / name).read_bytes()).hexdigest()[:12]
         width, height = clean.size
         css = 'gallery-photo gallery-photo-wide' if width > height else 'gallery-photo'
-        figures.append(f'        <figure class="{css}"><img src="assets/images/optimized/album/{name}" width="{width}" height="{height}" loading="lazy" decoding="async" alt="승준과 현정의 웨딩 사진 {number}"></figure>')
+        figures.append(f'        <figure class="{css}"><img src="assets/images/optimized/album/{name}?v={version}" width="{width}" height="{height}" loading="lazy" decoding="async" alt="승준과 현정의 웨딩 사진 {number}"></figure>')
         with Image.open(output / name) as check:
             assert check.size == (width, height)
             assert not check.getexif() and not check.info.get('xmp')
@@ -35,4 +40,8 @@ html = page.read_text(encoding='utf-8')
 html, count = re.subn(r'(<div class="gallery-grid"[^>]*>).*?(\n      </div>)', lambda m: m[1] + '\n' + '\n'.join(figures) + m[2], html, count=1, flags=re.S)
 assert count == 1
 page.write_text(html, encoding='utf-8')
+for old in output.glob('*.webp'):
+    if old.name not in generated:
+        assert old.resolve().parent == output.resolve()
+        old.unlink()
 print(f'Converted and verified {len(photos)} photos; {sum(p.stat().st_size for p in output.glob("*.webp")) / 1024 / 1024:.2f} MB')
