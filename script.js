@@ -24,7 +24,7 @@
   const copyButton = document.querySelector("#copy-link");
   const shareButton = document.querySelector("#native-share");
   const captureShield = document.querySelector("#capture-shield");
-  const invitationUrl = "https://hyunjeong-seungjun.github.io/?share=main-photo-v2";
+  const invitationUrl = "https://hyunjeong-seungjun.github.io/?share=main-photo-20261115";
   const protectedImagePath = atob("YXNzZXRzL2ltYWdlcy9vcHRpbWl6ZWQvbWFpbi1tb2JpbGUtcmV0b3VjaGVkLmpwZz92PTIwMjYxMTE1");
 
   const protectedImage = new Image();
